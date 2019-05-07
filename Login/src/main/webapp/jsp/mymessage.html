@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>我的信息</title>
+    <link ype="text/css" rel="stylesheet" href="../css/style.css" />
+    <script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+    <link type="text/css" rel="stylesheet" href="../layui/css/layui.css">
+</head>
+
+<body>
+<div class="login-div-main">
+    <div class="all-div1"></div>
+    <div style="color:#fff; margin-top:auto;margin-bottom:auto;height:70px;font-size:20px; margin-left:30px;" align="right">
+        <div style="padding-top:10px; padding-right:10px;">
+            欢迎你，${requestScope.users.username }&nbsp;&nbsp;|&nbsp;&nbsp;我的消息&nbsp;&nbsp;|&nbsp;&nbsp;退出
+        </div></div>
+    
+    
+    <div id="uaulist" style="width:1000px; height:500px;margin:0px auto 0px auto;" align="center">
+        <div style="margin:auto; width:670px; height:480px">
+            <div style="width:100%; height:35px; background:#2F4056;" align="center">
+            	
+
+            	<button class="layui-btn" style="width:70px;height:100%;float: left;background-color:#191970;">
+  					<i class="layui-icon layui-icon-left" style="color: #fff"></i>
+				</button>
+                <span style="color:#fff;font-size: 23px">我的消息</span></div>
+            <!--消息面板-->
+            <div style="width:100%; height:445px; background:#e2e2e2;">
+                <div style="width:650px; height:435px; background:#f2f2f2; margin:auto auto auto auto;overflow:auto;">
+
+
+                    <table width="650px" cellpadding="0" cellspacing="0" border="1px">
+
+                        <tr height="50px">
+                            <td width="20%" align="center">用户名</td>
+                            <td width="65%" align="center">内容</td>
+                            <td width="15%" align="center">操作</td>
+                        </tr>
+                    </table>
+                    <!--列表-->
+                    <table width="650px" cellpadding="0" cellspacing="0" border="1px">
+                        <!--一条模板-->
+                        <tr height="50px">
+                            <td width="20%" align="center">asdasd</td>
+                            <td width="65%" style="padding-left:10px;">qqqqqq</td>
+                            <td width="15%" align="center"><input type="button" class="layui-btn layui-btn-danger" style="width: 80%;" value="删除" username="1" tousername="2" context="3" onclick="xiugai(1,2,3)"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 数据源 -->
+    <!-- 引入properties便于下面的数据源配置 -->
+    <bean id="config" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="locations">
+            <array>
+                <value>classpath:db.properties</value>
+            </array>
+        </property>
+    </bean>
+    <!-- 配置数据库信息（代替了mybaties的配置文件conf.xml）-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+    <!-- 配置mybatis需要的核心类：sqlsessionfactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 加载mapper.xml路径 -->
+        <property name="mapperLocations" value="classpath*:com/bao/mapper/*Mapper.xml"></property>
+    </bean>
+
+    <!-- spring整合mybatis：将mybatis的sqlsessionfactory交给spring -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <!-- 将这个包里面的接口产生对应的动态代理对象，对象名就是首字母小写的接口名 -->
+        <!-- 相当于StudentMapper studentMapper=session.getMapper(StudentMapper.class) -->
+        <property name="basePackage" value="com.bao.mapper"></property>
+    </bean>
+    
+    
+    
+    <bean id="userService" class="com.bao.service.Impl.UserServiceImpl">
+        <property name="userMapper" ref="userMapper"/>
+    </bean>
+    
+    <!--控制器的依赖在控制器里面已经自动装配了，不用再写依赖-->
+    <!--<bean id="controller" class="com.bao.controller.UserController">-->
+        <!--<property name="userService" ref="userService"></property>-->
+    <!--</bean>-->
+    
+    <bean id="user" class="com.bao.entity.User"></bean>
+    
+    
+    
+</beans>

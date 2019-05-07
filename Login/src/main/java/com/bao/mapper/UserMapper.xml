@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bao.mapper.UserMapper">
+	
+    <select id="queryUserByUsername" resultType="com.bao.entity.User" parameterType="String">
+ 		select * from users where username = #{username}
+ 	</select>
+	<select id="queryPassByUsername" resultType="String" parameterType="String">
+ 		select password from users where username = #{username}
+ 	</select>
+	<insert id="addUser" parameterType="com.bao.entity.User">
+		insert into users(id,username,password,email,context) values(null,#{username},#{password},#{email},#{context})
+	</insert>
+	
+	<update id="updataPassByUsername" parameterType="com.bao.entity.User">
+		update users set password = #{password} where username = #{username}
+	</update>
+	
+	<!--非user操作-->
+	<insert id="addUau" parameterType="com.bao.entity.Uau">
+		insert into aite(username,tousername,context) values(#{username},#{tousername},#{context})
+	</insert>
+	
+	<select id="queryUauByTouser" parameterType="java.lang.String" resultType="com.bao.entity.Uau">
+		select * from aite where tousername=#{tousername}
+	</select>
+	
+	<delete id="deleteUauaByUau" parameterType="com.bao.entity.Uau">
+		DELETE FROM aite WHERE username = #{username} and tousername=#{tousername} and context=#{context}
+	</delete>
+	
+</mapper>
