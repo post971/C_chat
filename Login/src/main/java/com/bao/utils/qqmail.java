@@ -7,7 +7,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
-
 public class qqmail {
     //发件人，发件人密码或者授权码，收件人，抄送人,密送人,发件人名称,邮件主题,邮件内容,收件人名字
     public static void setSend(String send,String pass,String receive,String cReceive,String mReceive,String sender,String subject,String context,String receivename){

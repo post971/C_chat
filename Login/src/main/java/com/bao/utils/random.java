@@ -3,7 +3,6 @@ package com.bao.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 public class random {
     public void redom(HttpServletRequest request,String mail) {
         int code=1000+(int)(Math.random()*8999);
