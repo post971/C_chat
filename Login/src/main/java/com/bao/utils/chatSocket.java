@@ -33,10 +33,9 @@ public class chatSocket {
     
     @OnOpen
     public void open(Session session){
-        //System.out.println("sessionid:"+session.getId());
         String queryString=session.getQueryString();
         username=queryString.split("=")[1];
-        //System.out.println("发言人："+username);
+        
 
         //把上线名字广播给所有用户
         this.names.add(username);
@@ -113,8 +112,7 @@ public class chatSocket {
                 for(;i<msg.length();i++){
                     context+=String.valueOf(msg.charAt(i));
                 }
-                //System.out.println("context="+context);
-                //System.out.println("系统消息："+this.username+"@@@"+slname+"---"+msg);
+               
                 
                 //把私聊消息存入数据库
                 Uau uau=new Uau();
@@ -171,10 +169,6 @@ public class chatSocket {
                 }
                 
                 
-                //System.out.println();
-                //System.out.println("插话的人"+bcname);
-                //System.out.println("被插话context："+bccontext);
-                //System.out.println("插话context："+context);
 
                 
                 //把list的内容遍历
@@ -193,19 +187,13 @@ public class chatSocket {
                     }
                     j++;
                 }
-                //System.out.println("sw="+bcname);
-                //System.out.println("nameandcontext:"+nameandcontext);
-                //System.out.println("j="+j);
+                
                 
                 
                 //插话
                 String ch=bcname+"&[插话]"+context;
-                    //System.out.println("ch:"+ch);
-                    //System.out.println("1------"+nameandcontext);
                 nameandcontext.add(j+1,ch);
                 nameandcontext.remove( nameandcontext.get(nameandcontext.size()-1));
-                    //System.out.println("jandch"+j+"------"+ch);
-                    //System.out.println("2------"+nameandcontext);
                 
                 Message message = new Message();
                 
@@ -224,7 +212,6 @@ public class chatSocket {
     public void broadcast(List<Session> ss,String msg){
         for(int i=0;i<ss.size();i++){
             Session session =ss.get(i);
-            //System.out.println("广播到"+session.getId()+"内容:"+msg);
             
             try {
                 //广播

@@ -49,7 +49,6 @@ public class ForgetController {
         HttpSession session=request.getSession();
         //获取session里的验证码
         if(session.getAttribute("Vcode")!=null) {
-            //System.out.println(session.getAttribute("Vcode").toString() + "--" + yan);
             String s = session.getAttribute("Vcode").toString();
             if (yan.equals(s)) {
                 //返回成功

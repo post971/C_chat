@@ -29,13 +29,8 @@ public class GetInfo {
     @RequestMapping("context/{username}")
     public ModelAndView getcontext(@PathVariable("username")String name){
 
-        //System.out.println("666");
-        /*!*/
         ModelAndView mv=new ModelAndView("my");
         User user=userService.queryUserByName(name);
-        //System.out.println(user.getUsername());
-        //System.out.println(user.getPassword());
-        //System.out.println(user);
         mv.addObject("users",user);
 
         return mv;
@@ -53,13 +48,6 @@ public class GetInfo {
         
         //查找被@的数据
         List<Uau> uaulist=userService.queryUauByTouser(username);
-        
-        //遍历list
-        /*Iterator iterator = uaulist.iterator();
-        while (iterator.hasNext()) {
-            //iterator.next();
-            System.out.println(iterator.next());
-        }*/
         
 
         return JsonMsg.setuaulist(uaulist);
