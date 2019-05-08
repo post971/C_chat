@@ -20,7 +20,7 @@
             <a href="#" style="color: #fff">${requestScope.users.username }</a>
             &nbsp;&nbsp;|&nbsp;&nbsp;
             <a href="#" onclick="showmymessage()" style="color: #fff">我的消息</a>
-            
+
             &nbsp;&nbsp;|&nbsp;&nbsp;
             <a href="javascript:history.go(-1)" style="color: #fff">退出</a>
         </div>
@@ -134,24 +134,24 @@
                             <td width="15%" align="center">操作</td>
                         </tr>
                     </table>
-                    
-                    
+
+
                     <!--一条模板-->
                     <div id="k" style="display: none;">
-                    <table  width="650px" cellpadding="0" cellspacing="0" border="1px">
-                        <tr id="uauitem" height="50px">
-                            <td ff="name" width="20%" align="center">asdasd</td>
-                            <td ff="context" width="65%" style="padding-left:10px;">qqqqqq</td>
-                            <td ff="delete" width="15%" align="center">
-                                <input type="button" class="layui-btn layui-btn-danger" style="width: 80%;" value="删除" onclick="xiugai(1,2,3)">
-                            </td>
-                        </tr>
-                    </table>
+                        <table  width="650px" cellpadding="0" cellspacing="0" border="1px">
+                            <tr id="uauitem" height="50px">
+                                <td ff="name" width="20%" align="center">asdasd</td>
+                                <td ff="context" width="65%" style="padding-left:10px;">qqqqqq</td>
+                                <td ff="delete" width="15%" align="center">
+                                    <input type="button" class="layui-btn layui-btn-danger" style="width: 80%;" value="删除" onclick="xiugai(1,2,3)">
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                    
+
                     <!--列表-->
                     <div id="uautable" style="width: 650px;"></div>
-                        
+
                     </table>
                 </div>
             </div>
@@ -197,7 +197,7 @@
 
 
 
-        
+
         ws.onmessage=function (ev) {
 
             eval("var msg="+ev.data+";");
@@ -211,8 +211,8 @@
                     addUser(this);
                 });
             }
-            
-            
+
+
             //插话系统发过来的消息
             if(undefined!=msg.contextlist){
                 $("#msframe").html("");
@@ -224,11 +224,20 @@
                     var name1=this.split("&")[0];
                     /*发送内容*/
                     var context1=this.split("&")[1];
-                    console.info(name1+"<____>"+context1);
-                    
+                    //console.info(name1+"<____>"+context1);
+
                     if(context1.split("]")[0]=="[私信")
                     {
-                    if(name1=="${requestScope.users.username }"||context1.split("]")[1].split(" ")[0]=="${requestScope.users.username }"){
+                        if(name1=="${requestScope.users.username }"||context1.split("]")[1].split(" ")[0]=="${requestScope.users.username }"){
+                            if(name1=="${requestScope.users.username }"){
+                                addMessage(name1,context1,1);
+                            }
+                            else{
+                                addMessage(name1,context1,0);
+                            }
+                        }
+                    }
+                    else{
                         if(name1=="${requestScope.users.username }"){
                             addMessage(name1,context1,1);
                         }
@@ -236,21 +245,12 @@
                             addMessage(name1,context1,0);
                         }
                     }
-                    }
-                    else{
-                    if(name1=="${requestScope.users.username }"){
-                        addMessage(name1,context1,1);
-                    }
-                    else{
-                        addMessage(name1,context1,0);
-                    }
-                    }
                 });
                 //alert(s);
             }
             //接收对话消息
             if(undefined!=msg.context){
-                
+
                 //alert(msg.context);
                 var s=msg.context;
                 var name=s.split("%")[0];
@@ -307,7 +307,7 @@
         $("#msframe").scrollTop(999999) //滚动条拉至最底部
     }
 
-    
+
     function aite(name){
         $("#text").val("[私信]"+name+" ");
     }
@@ -317,8 +317,8 @@
         ws.send(val);
         $("#text").val("");
     });
-    
-    
+
+
     function showmymessage() {
         $("#mydiv1").css("display","none");
         $("#uaulist").css("display","block");
@@ -351,9 +351,9 @@
                     item.find('[ff=delete]').html(s)//设置按钮
                     item.appendTo("#uautable");//追加到table中
                 }
-                
-                 
-                
+
+
+
             },
             error:function(xhr,errrorMessage,e) {
                 alert("服务器内部错误！");
@@ -364,7 +364,7 @@
         $("#mydiv1").css("display","block");
         $("#uaulist").css("display","none")
     }
-    
+
     //删除私信记录
     function deletesm(username,tousername,context){
 
@@ -389,15 +389,15 @@
             //alert("取消");
             return false;
         }
-        
+
     }
-    
+
     function cha(context){
         //alert("cha-"+context);
         $("#text").val("[插话]"+context+" ");
         $("#text").focus();
     }
-    
+
 
 </script>
 </body>
