@@ -224,10 +224,18 @@
                     var name1=this.split("&")[0];
                     /*发送内容*/
                     var context1=this.split("&")[1];
-                    var s=context1.split("]");
-                    if(s[0]=="[私信"&&s[1].split(" ")[0]!="${requestScope.users.username }")
+                    console.info(name1+"<____>"+context1);
+                    
+                    if(context1.split("]")[0]=="[私信")
                     {
-                        
+                    if(name1=="${requestScope.users.username }"||context1.split("]")[1].split(" ")[0]=="${requestScope.users.username }"){
+                        if(name1=="${requestScope.users.username }"){
+                            addMessage(name1,context1,1);
+                        }
+                        else{
+                            addMessage(name1,context1,0);
+                        }
+                    }
                     }
                     else{
                     if(name1=="${requestScope.users.username }"){
