@@ -76,7 +76,7 @@ public class chatSocket {
         
         
         //把前4个字拿出来看看有没有[私聊]或者[插话]
-        System.out.println("aa-"+msg);
+        //System.out.println("aa-"+msg);
         String s="";
         if(msg.length()>=4){
             s=msg.substring(0,4);
@@ -171,10 +171,10 @@ public class chatSocket {
                 }
                 
                 
-                System.out.println();
-                System.out.println("插话的人"+bcname);
-                System.out.println("被插话context："+bccontext);
-                System.out.println("插话context："+context);
+                //System.out.println();
+                //System.out.println("插话的人"+bcname);
+                //System.out.println("被插话context："+bccontext);
+                //System.out.println("插话context："+context);
 
                 
                 //把list的内容遍历
@@ -189,7 +189,6 @@ public class chatSocket {
                     if(bccontext.equals(contextms)){
                         //
                         sw=namems;
-                        System.out.println(667);
                         break;
                     }
                     j++;
@@ -201,12 +200,12 @@ public class chatSocket {
                 
                 //插话
                 String ch=bcname+"&[插话]"+context;
-                    System.out.println("ch:"+ch);
-                    System.out.println("1------"+nameandcontext);
+                    //System.out.println("ch:"+ch);
+                    //System.out.println("1------"+nameandcontext);
                 nameandcontext.add(j+1,ch);
                 nameandcontext.remove( nameandcontext.get(nameandcontext.size()-1));
-                    System.out.println("jandch"+j+"------"+ch);
-                    System.out.println("2------"+nameandcontext);
+                    //System.out.println("jandch"+j+"------"+ch);
+                    //System.out.println("2------"+nameandcontext);
                 
                 Message message = new Message();
                 

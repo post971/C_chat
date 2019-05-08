@@ -197,7 +197,7 @@
 
 
 
-        //接受客户列表
+        
         ws.onmessage=function (ev) {
 
             eval("var msg="+ev.data+";");
@@ -212,6 +212,8 @@
                 });
             }
             
+            
+            //插话系统发过来的消息
             if(undefined!=msg.contextlist){
                 $("#msframe").html("");
                 var s="";
@@ -222,11 +224,18 @@
                     var name1=this.split("&")[0];
                     /*发送内容*/
                     var context1=this.split("&")[1];
+                    var s=context1.split("]");
+                    if(s[0]=="[私信"&&s[1].split(" ")[0]!="${requestScope.users.username }")
+                    {
+                        
+                    }
+                    else{
                     if(name1=="${requestScope.users.username }"){
                         addMessage(name1,context1,1);
                     }
                     else{
                         addMessage(name1,context1,0);
+                    }
                     }
                 });
                 //alert(s);
