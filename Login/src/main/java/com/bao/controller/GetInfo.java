@@ -45,7 +45,6 @@ public class GetInfo {
         String username=request.getParameter("username");
         
         
-        
         //查找被@的数据
         List<Uau> uaulist=userService.queryUauByTouser(username);
         
@@ -53,7 +52,16 @@ public class GetInfo {
         return JsonMsg.setuaulist(uaulist);
         
     }
-
-
     
+    //admin管理员
+    @RequestMapping("/admin")
+    @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
+    public JsonMsg admin(HttpServletRequest request){
+        List<User> user=userService.queryUser();
+        //System.out.println(user);
+        return JsonMsg.adminlist(user);
+    }
+
+
+
 }

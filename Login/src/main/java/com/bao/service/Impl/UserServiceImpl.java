@@ -17,6 +17,11 @@ public class UserServiceImpl  implements IUserService {
     }
 
     @Override
+    public List<User> queryUser() {
+        return userMapper.queryUser();
+    }
+
+    @Override
     public User queryUserByName(String name) {
         return userMapper.queryUserByUsername(name);
     }
@@ -25,15 +30,26 @@ public class UserServiceImpl  implements IUserService {
         return userMapper.queryPassByUsername(name);
     }
 
+    public void deleteUser(User user){
+        userMapper.deleteUser(user);
+    };
+    
+    
     @Override
     public void addUser(User user) {
         userMapper.addUser(user);
     }
 
     @Override
-    public void updataPassByUsername(User user) {
-        userMapper.updataPassByUsername(user);
+    public void updatePassByUsername(User user) {
+        userMapper.updatePassByUsername(user);
     }
+
+    @Override
+    public void updateUserByUser(User user) {
+        userMapper.updateUserByUser(user);
+    }
+
 
     @Override
     public void addUau(Uau uau) {

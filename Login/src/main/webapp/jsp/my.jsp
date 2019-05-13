@@ -207,8 +207,8 @@
             if(undefined!=msg.usernames){
                 $("#listbody").html("");
                 $(msg.usernames).each(function(){
-                    //alert("用户"+this);
-                    addUser(this);
+                    console.info(decodeURI(this));
+                    addUser(decodeURI(this));
                 });
             }
 

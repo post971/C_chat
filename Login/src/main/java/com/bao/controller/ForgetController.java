@@ -75,7 +75,7 @@ public class ForgetController {
         
         user.setUsername(username);
         user.setPassword(password);
-        userService.updataPassByUsername(user);
+        userService.updatePassByUsername(user);
         return JsonMsg.success();
     }
 }

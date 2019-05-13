@@ -29,56 +29,59 @@ public class UserController {
     private IUserService userService;
     @Autowired
     private User user;
-    
+
     public void setUserService(IUserService userService) {
         this.userService = userService;
     }
-    
-    
+
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody//返回json一定要加这个，否则返回不了
-    public JsonMsg login(HttpServletRequest request){
-        
-        String name=request.getParameter("username");
-        String pass=request.getParameter("password");
+    public JsonMsg login(HttpServletRequest request) {
 
-        //System.out.println(request);
-        User user=userService.queryUserByName(name);
-        
+        String name = request.getParameter("username");
+        String pass = request.getParameter("password");
 
-        ModelAndView mv=new ModelAndView();
-        mv.addObject("users",user);
-        
-        if(pass.equals(user.getPassword())){
-            //System.out.println("登陆成功！");
-            return JsonMsg.success();
-        }
+
+        //是否进入管理者模式
+        if ("admin".equals(name) && "admin".equals(pass)) {
+            return JsonMsg.admin();
+        } else {
+            //System.out.println(request);
+            User user = userService.queryUserByName(name);
+
+
+            ModelAndView mv = new ModelAndView();
+            mv.addObject("users", user);
+            System.out.println(user);
+            if (pass.equals(user.getPassword())) {
+                //System.out.println("登陆成功！");
+                return JsonMsg.success();
+            }
             //System.out.println("登陆失败！");
             return JsonMsg.fail();
-        
+        }
     }
-
-
 
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
-    public JsonMsg register(HttpServletRequest request){
-        String username=request.getParameter("name");
-        String password=request.getParameter("pass");
-        String email=request.getParameter("email");
-        String yan=request.getParameter("yan");
-        HttpSession session=request.getSession();
+    public JsonMsg register(HttpServletRequest request) {
+        String username = request.getParameter("name");
+        String password = request.getParameter("pass");
+        String email = request.getParameter("email");
+        String yan = request.getParameter("yan");
+        HttpSession session = request.getSession();
         JsonMsg json;
 
         //验证是否用户名是否已存在//有另一种方法直接查询所有校验密码
-        String sqlpass=userService.queryPassByUsername(username);
+        String sqlpass = userService.queryPassByUsername(username);
 
         //System.out.println(session.getAttribute("Vcode"));
 
-        if(sqlpass==null){
+        if (sqlpass == null) {
             //校验验证码
-            if(session.getAttribute("Vcode")!=null) {
+            if (session.getAttribute("Vcode") != null) {
                 //System.out.println(session.getAttribute("Vcode").toString() + "--" + yan);
                 String s = session.getAttribute("Vcode").toString();
                 if (yan.equals(s)) {
@@ -90,20 +93,18 @@ public class UserController {
                     user.setContext("(暂无内容，点击【修改】添加内容)");
                     userService.addUser(user);
                     //返回成功
-                    json=JsonMsg.success();
+                    json = JsonMsg.success();
                 } else {
                     //验证码无效
-                    json=JsonMsg.noSession();
+                    json = JsonMsg.noSession();
                 }
-            }
-            else{
+            } else {
                 //验证码无效
-                json=JsonMsg.noSession();
+                json = JsonMsg.noSession();
             }
-        }
-        else{
+        } else {
             //用户名已存在
-            json=JsonMsg.aUser();
+            json = JsonMsg.aUser();
         }
         //返回提示信息
         return json;
@@ -112,30 +113,67 @@ public class UserController {
 
     @RequestMapping(value = "yan", method = RequestMethod.POST)
     @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
-    public JsonMsg sendYan(HttpServletRequest request)  {
-        String mail=request.getParameter("emailJson");
+    public JsonMsg sendYan(HttpServletRequest request) {
+        String mail = request.getParameter("emailJson");
         System.out.println(mail);
         //随机验证码code
 
-        random random=new random();
-        random.redom(request,mail);
+        random random = new random();
+        random.redom(request, mail);
         return JsonMsg.nullJson();
     }
 
 
     @RequestMapping(value = "deletesm", method = RequestMethod.POST)
     @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
-    public JsonMsg deletesm(HttpServletRequest request){
-        String username=request.getParameter("username");
-        String tousername=request.getParameter("tousername");
-        String context=request.getParameter("context");
-        System.out.println(username+"--"+tousername+"--"+context);
-        Uau uau=new Uau();
+    public JsonMsg deletesm(HttpServletRequest request) {
+        String username = request.getParameter("username");
+        String tousername = request.getParameter("tousername");
+        String context = request.getParameter("context");
+        System.out.println(username + "--" + tousername + "--" + context);
+        Uau uau = new Uau();
         uau.setUsername(username);
         uau.setTousername(tousername);
         uau.setContext(context);
         userService.deleteUauaByUau(uau);
         return JsonMsg.nullJson();
     }
+
+    @RequestMapping(value = "deleteuser", method = RequestMethod.POST)
+    @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
+    public JsonMsg deleteuser(HttpServletRequest request) {
+        String username=request.getParameter("username");
+        String password=request.getParameter("password");
+        String email=request.getParameter("email");
+        User user=new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEmail(email);
+        userService.deleteUser(user);
+        return JsonMsg.success();
+    }
     
+    @RequestMapping("updateuser")
+    @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
+    public JsonMsg updateuser(HttpServletRequest request){
+        //原来的账号密码
+        String username=request.getParameter("username");
+        //要修改的账号密码
+        String username2=request.getParameter("username2");
+        String password2=request.getParameter("password2");
+        String email2=request.getParameter("email2");
+        //先查找要修改的id
+        User user=userService.queryUserByName(username);
+        int id=user.getId();
+        
+        //根据id修改
+        User user2=new User();
+        user2.setUsername(username2);
+        user2.setPassword(password2);
+        user2.setEmail(email2);
+        //System.out.println(username2+","+password2+","+email2+","+id);
+        user2.setId(id);
+        userService.updateUserByUser(user2);
+        return JsonMsg.success();
+    }
 }

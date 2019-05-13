@@ -4,7 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bao.mapper.UserMapper">
-	
+
+	<select id="queryUser" resultType="com.bao.entity.User">
+ 		select * from users
+ 	</select>
     <select id="queryUserByUsername" resultType="com.bao.entity.User" parameterType="String">
  		select * from users where username = #{username}
  	</select>
@@ -15,9 +18,17 @@
 		insert into users(id,username,password,email,context) values(null,#{username},#{password},#{email},#{context})
 	</insert>
 	
-	<update id="updataPassByUsername" parameterType="com.bao.entity.User">
+	<update id="updatePassByUsername" parameterType="com.bao.entity.User">
 		update users set password = #{password} where username = #{username}
 	</update>
+	
+	<update id="updateUserByUser" parameterType="com.bao.entity.User">
+		update users set username=#{username},password=#{password},email=#{email} where id=#{id}
+	</update>
+
+	<delete id="deleteUser" parameterType="com.bao.entity.User">
+		DELETE FROM users WHERE username = #{username} and password=#{password} and email=#{email}
+	</delete>
 	
 	<!--非user操作-->
 	<insert id="addUau" parameterType="com.bao.entity.Uau">
@@ -31,5 +42,7 @@
 	<delete id="deleteUauaByUau" parameterType="com.bao.entity.Uau">
 		DELETE FROM aite WHERE username = #{username} and tousername=#{tousername} and context=#{context}
 	</delete>
+	
+	
 	
 </mapper>

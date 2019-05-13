@@ -36,7 +36,7 @@
             <tr><td>
               <i class="layui-icon layui-icon-password" style= "font-size: 27px;color:#666; margin-right:5px;"> </i></td>
               <td>
-                <input type="text" name="password" id="password" placeholder="请输入密码" class="all-input" oninput="change('password')"/></td></tr></table>
+                <input type="password" name="password" id="password" placeholder="请输入密码" class="all-input" oninput="change('password')"/></td></tr></table>
         </div>
 
         <div><input type="button" id="login" class="layui-btn layui-btn-normal" value="登录" style="width:100%; margin:15px 0px 5px 0px;" ></div>
@@ -104,7 +104,12 @@
                             window.location= "/getinfo/context/"+$('#username').val();
                             $("#username").val("");
                             $("#password").val("");
-                        }else {
+                        }
+                        else if(result.code==3){
+                            //进入admin
+                            window.location.href = 'admin.jsp';
+                        }
+                        else {
                             $("#uaperror").css("display","block");
                             $("#username").focus();
                             //alert("账号或密码错误！");

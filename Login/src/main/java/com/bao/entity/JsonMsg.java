@@ -12,6 +12,7 @@ public class JsonMsg {
     private int code;
     private String msg;
     private List<Uau> list;
+    private List<User> userList;
     private Map<String, Object> extendInfo = new HashMap<>();
 
     public int getCode() {
@@ -44,6 +45,14 @@ public class JsonMsg {
 
     public void setList(List<Uau> list) {
         this.list = list;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     public static JsonMsg success(){
@@ -88,6 +97,18 @@ public class JsonMsg {
         JsonMsg res = new JsonMsg();
         res.setList(list);
         res.setMsg("");
+        return res;
+    }
+    
+    public static JsonMsg admin(){
+        JsonMsg res=new JsonMsg();
+        res.setCode(3);
+        return res;
+    }
+    
+    public static JsonMsg adminlist(List<User> user){
+        JsonMsg res=new JsonMsg();
+        res.setUserList(user);
         return res;
     }
     
