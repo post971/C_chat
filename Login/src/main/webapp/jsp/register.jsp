@@ -92,55 +92,14 @@
 		</div>
 	</div>
 </div>
-<!--
 
-<form id="register-form" action="#" role="form" method="POST">
-	<table class="register-teble" border="1" cellpadding="10" cellspacing="0">
-		<tr>
-			<td colspan="2" class="register-td">用户登录</td>
-		</tr>
-		
-		<tr>
-			<td align="right">用户名:</td>
-			<td><input type="text" id="name" name="name"/></td>
-		</tr>
-		
-		<tr>
-			<td align="right">密&nbsp;&nbsp;&nbsp;&nbsp;码:</td>
-			<td><input type="password" id="pass" name="pass"/></td>
-		</tr>
-		
-		<tr>
-			<td align="right">确认密码:</td>
-			<td><input type="password" id="pass2" name="pass2"/></td>
-		</tr>
-		
-		<tr>
-			<td align="right">邮箱:</td>
-			<td><input type="text" id="email" name="email"/></td>
-		</tr>
-		
-		<tr>
-			<td align="right">验证码:</td>
-			<td><input type="text" style="width:70px;" id="yan" name="yan"/>
-			<input type="button" value="发送验证码" id="yan-btn"/></td>
-		</tr>
-		
-		<tr>
-			<td colspan="2" align="center">
-				<input type="button" value="注册" id="submit"/>
-				<a href="login.jsp">已有账号，登陆</a>
-			</td>
-		</tr>
-	</table>
-</form>-->
-<%--<script type="text/javascript" src="../js/register.js"/>--%>
 <script type="text/javascript">
     $(document).ready(function() {
 
         $("#submit").click(function(){
             var flag=0;
             /*验证有没有未填的*/
+			//用户名不能为空
             if ($.trim($("#name").val())==""){
                 $("#name").attr('placeholder','用户名不能为空')
                 $("#name-div").css({background:"#FFE4E1"});
@@ -148,52 +107,50 @@
                 $("#name").focus();
                 flag=flag+1;
             }
+            //密码不能为空
             if ($.trim($("#pass").val())==""){
-                //alert("密码不能为空");
                 $("#pass").attr('placeholder','密码不能为空')
                 $("#pass-div").css({background:"#FFE4E1"});
                 $("#pass").css({background: "#FFE4E1"});
                 $("#pass").focus();
                 flag=flag+1;
             }
+            //确认密码不能为空
             if ($.trim($("#pass2").val())==""){
-                //alert("确认密码不能为空");
                 $("#pass2").attr('placeholder','确认密码不能为空')
                 $("#pass2-div").css({background:"#FFE4E1"});
                 $("#pass2").css({background: "#FFE4E1"});
                 $("#pass2").focus();
                 flag=flag+1;
             }
-
+            //邮箱不能为空
             if ($.trim($("#email").val())==""){
-                //alert("邮箱不能为空");
                 $("#email").attr('placeholder','邮箱不能为空')
                 $("#email-div").css({background:"#FFE4E1"});
                 $("#email").css({background: "#FFE4E1"});
                 $("#email").focus();
                 flag=flag+1;
             }
+            //验证码不能为空
             if ($.trim($("#yan").val())==""){
-                //alert("验证码不能为空");
                 $("#yan").attr('placeholder','验证码不能为空')
                 $("#yan-div").css({background:"#FFE4E1"});
                 $("#yan").css({background: "#FFE4E1"});
                 $("#yan").focus();
                 flag=flag+1;
             }
+            //两次密码输入不一致
             if(flag==0){
-                //alert("666")
                 if($.trim($("#pass").val())!=$.trim($("#pass2").val())){
                     $("#info").css("display","block");
-                    //alert("两次密码输入不一致");
                     $("#pass").focus();
                 }else{
                     
-                    //alert("所有选项都不为空");
+                    
                     /*注册*/
                     var myReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
                     var email=$.trim($("#email").val())
-                    //alert("email:"+email);
+                    
                     
                         
                     
@@ -202,9 +159,6 @@
                         $("#email1").focus();
                     }
                     else{
-                        //alert("666");
-                        // alert("邮箱不能为空");
-
                         $.ajax({
                             url:"/user/register",
                             type:"POST",
@@ -234,9 +188,8 @@
         $("#yan-btn").click(function () {
             /*发送验证码*/
             var email=$.trim($("#email").val())
-            //alert("email:"+email);
             if (email==""){
-                // alert("邮箱不能为空");
+				alert("邮箱不能为空");
             }
             else if (!myReg.test(email)) {
                 alert("邮箱格式不正确！请重新输入");
@@ -258,8 +211,7 @@
                     error:function(xhr,errrorMessage,e) {
                         alert("服务器内部错误！");
                     }});
-                //-------
-                //window.location.href="/register/yan/"+email;
+                
             }
 
 
@@ -287,6 +239,7 @@
 
 
 
+    //监听编辑款文字更改，把红色编辑框变成白色
     function change(type) {
         if(type=="name") {
             $("#name").attr('placeholder', '请输入用户名');

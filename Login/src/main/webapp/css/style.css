@@ -61,6 +61,25 @@ login-outside{
 	height:500px;
 	margin:0px auto 0px auto;
 }
+.my-div2{
+	width:95%;
+	height:98%;
+	background:#f2f2f2;
+	margin:auto;
+}
+.my-div3{
+	width:100%;
+	height:35px;
+	background:#2F4056;
+	text-align: center;
+}
+.my-div4{
+	width:650px;
+	height:435px;
+	background:#f2f2f2;
+	margin:auto auto auto auto;
+	overflow:auto;
+}
 
 .my-divleft-top{
 	width:100%;
@@ -96,4 +115,29 @@ login-outside{
 	background:#f2f2f2;
 	margin:auto auto auto auto;
 	overflow: auto;
+}
+.my-uaulist{
+	width:1000px;
+	height:500px;
+	margin:0px auto 0px auto;
+	display: none;
+}
+.my-back{
+	width:70px;
+	height:100%;
+	float: left;
+	background-color:#191970;
+}
+
+.admin-uaulist{
+	width:1000px;
+	height:500px;
+	margin:0px auto 0px auto;
+}
+.admin-div1{
+	width:650px;
+	height:435px;
+	background:#f2f2f2;
+	margin:auto auto auto auto;
+	overflow:auto;
 }

@@ -47,34 +47,10 @@
   </div>
 </div>
 
-<!--
-<form id="login-form" action="#" role="form" method="POST">
-    <table class="login-top" border="1" cellpadding="10" cellspacing="0">
-        <tr>
-            <td colspan="2" class="login-td">用户登录</td>
-        </tr>
-        <tr>
-            <td align="right">用户名:</td>
-            <td><input type="text" name="username" id="username"/></td>
-        </tr>
-        <tr>
-            <td align="right">密&nbsp;&nbsp;&nbsp;&nbsp;码:</td>
-            <td><input type="text" name="password" id="password"/></td>
-        </tr>
-        <tr>
-            <td colspan="2" ali>
-            <input id="login" type="button" value="登录" />
-            <input type="button" value="注册" onclick="window.location.href = 'register.jsp'"/>
-            <a href="forget.jsp"> 忘记密码</a></td>
-        </tr>
-    </table>
-</form>
--->
+
 <script type="text/javascript">
     $(document).ready(function() {
         $("#login").click(function () {
-            //alert($("input[name='username']").val());
-            //alert($("input[name='password']").val());
             var flag=0;
             if($.trim($("input[name='username']").val())==""){
                 $("#username").attr('placeholder','用户名不能为空')
@@ -117,12 +93,7 @@
                         
                     },
                     error:function(xhr,errrorMessage,e) {
-                        /*alert(xhr.val());
-                        alert(errrorMessage);
-                        alert(e);*/
                         alert("服务器内部错误！");
-
-                        
                     }
                 });}
             

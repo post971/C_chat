@@ -35,6 +35,8 @@ public class UserController {
     }
 
 
+    
+    //登录
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody//返回json一定要加这个，否则返回不了
     public JsonMsg login(HttpServletRequest request) {
@@ -47,7 +49,6 @@ public class UserController {
         if ("admin".equals(name) && "admin".equals(pass)) {
             return JsonMsg.admin();
         } else {
-            //System.out.println(request);
             User user = userService.queryUserByName(name);
 
 
@@ -55,15 +56,15 @@ public class UserController {
             mv.addObject("users", user);
             System.out.println(user);
             if (pass.equals(user.getPassword())) {
-                //System.out.println("登陆成功！");
                 return JsonMsg.success();
             }
-            //System.out.println("登陆失败！");
             return JsonMsg.fail();
         }
     }
 
 
+    
+    //注册
     @RequestMapping(value = "register", method = RequestMethod.POST)
     @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
     public JsonMsg register(HttpServletRequest request) {
@@ -82,7 +83,6 @@ public class UserController {
         if (sqlpass == null) {
             //校验验证码
             if (session.getAttribute("Vcode") != null) {
-                //System.out.println(session.getAttribute("Vcode").toString() + "--" + yan);
                 String s = session.getAttribute("Vcode").toString();
                 if (yan.equals(s)) {
                     /*增加数据*/
@@ -111,6 +111,7 @@ public class UserController {
     }
 
 
+    //发送验证码
     @RequestMapping(value = "yan", method = RequestMethod.POST)
     @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
     public JsonMsg sendYan(HttpServletRequest request) {
@@ -124,6 +125,7 @@ public class UserController {
     }
 
 
+    //删除私信
     @RequestMapping(value = "deletesm", method = RequestMethod.POST)
     @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
     public JsonMsg deletesm(HttpServletRequest request) {
@@ -139,6 +141,8 @@ public class UserController {
         return JsonMsg.nullJson();
     }
 
+    
+    //admin-删除用户
     @RequestMapping(value = "deleteuser", method = RequestMethod.POST)
     @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
     public JsonMsg deleteuser(HttpServletRequest request) {
@@ -153,6 +157,8 @@ public class UserController {
         return JsonMsg.success();
     }
     
+    
+    //admin-修改用户
     @RequestMapping("updateuser")
     @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
     public JsonMsg updateuser(HttpServletRequest request){
@@ -171,7 +177,6 @@ public class UserController {
         user2.setUsername(username2);
         user2.setPassword(password2);
         user2.setEmail(email2);
-        //System.out.println(username2+","+password2+","+email2+","+id);
         user2.setId(id);
         userService.updateUserByUser(user2);
         return JsonMsg.success();

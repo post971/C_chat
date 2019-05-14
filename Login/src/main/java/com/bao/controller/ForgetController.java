@@ -20,6 +20,7 @@ public class ForgetController {
     @Autowired
     User user;
     
+    //忘记密码第一步，验证是否有这个用户名，发送验证码到邮箱
     @RequestMapping("/haveUser1")
     @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
     public JsonMsg forget(HttpServletRequest request) throws Exception{
@@ -41,6 +42,8 @@ public class ForgetController {
         return jsonMsg;
     }
 
+    
+    //忘记密码第二步，检查验证码是否正确
     @RequestMapping("/yan2")
     @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
     public JsonMsg yan(HttpServletRequest request){
@@ -66,6 +69,7 @@ public class ForgetController {
     }
 
 
+    //忘记密码第三部，设置新密码
     @RequestMapping("/newpass3")
     @ResponseBody//（写到这里要引入jackson-databind包，spring一定是要4.3.9.RELEASE，json一定是2.8.3，否则报错）
     public JsonMsg newPass(HttpServletRequest request){

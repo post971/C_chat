@@ -28,7 +28,7 @@
 
 
     </div>
-    <div id="uaulist" style="width:1000px; height:500px;margin:0px auto 0px auto;;" align="center">
+    <div id="uaulist" class="admin-uaulist" align="center">
         <div style="margin:auto; width:670px; height:480px">
             <div style="width:100%; height:35px; background:#2F4056;" align="center">
                 <button onclick="javascript:history.go(-1)" class="layui-btn" style="width:70px;height:100%;float: left;background-color:#191970;">
@@ -37,9 +37,7 @@
                 <span style="color:#fff;font-size: 23px">用户管理</span></div>
             
             <div style="width:100%; height:445px; background:#e2e2e2;">
-                <div style="width:650px; height:435px; background:#f2f2f2; margin:auto auto auto auto;overflow:auto;">
-
-
+                <div class="admin-div1">
                     <table width="650px" cellpadding="0" cellspacing="0" border="1px">
 
                         <tr height="50px">
@@ -103,39 +101,35 @@
             type: "POST",
             dataType: "json",
             success: function (result) {
-                //console.info(result.userList);
                 $(result.userList).each(function () {
-                    //console.info(this);
-                    //addUser(this);
                     var name = this.username;
-                    //console.info(name);
                     var pass = this.password;
                     var email = this.email;
 
                     
-                    //设置第一面
+                    //设置第一面（显示用户列表）
                     var box = $("#userlist1").clone(); 	//复制一份模板，取名为box
                     box.attr("id","a"+name);
                     box.css("display", "block") //显示
-                    box.find('[ff="name"]').html(name);	//设置box状态为显示
-                    box.find('[ff="pass"]').html(pass); //hr线设置为显示
+                    box.find('[ff="name"]').html(name);	//设置username
+                    box.find('[ff="pass"]').html(pass); //设置password
                     name = '"' + name + '"';
                     pass = '"' + pass + '"';
                     
 
-                    box.find('[ff="email"]').html(email); //
+                    box.find('[ff="email"]').html(email); //设置email
                     email = '"' + email + '"';
                     var s1 = "onclick='updateuser(" + name + "," + pass + "," + email + ")'";
                     var s2 = "onclick='deleteuser(" + name + "," + pass + "," + email + ")'";
                     var s = '<input type="button" class="layui-btn layui-btn-primary" style="width: 39%;" value="修改" ' + s1 + '>' +
                         '<input type="button" class="layui-btn layui-btn-danger" style="width: 39%;" value="删除" ' + s2 + '>';
                     box.find('[ff="event"]').html(s);
-                    box.appendTo("#usertable");		//把box追加到聊天面板中
+                    box.appendTo("#usertable");		//把box追加到列表
                     $("#usertable").scrollTop(999999) //滚动条拉至最底部
 
 
                     
-                    //第二面
+                    //第二面（编辑框的一面）
                     box.find("[ff='name2']").html('<input id="name22" style="width: 90px" type="text" value='+name+'/>');
                     box.find("[ff='pass2']").html('<input id="pass22" style="width: 90px" type="text" value='+pass+'/>');
                     box.find("[ff='email2']").html('<input id="email22" style="width: 180px" type="text" value='+email+'/>');
@@ -151,11 +145,12 @@
             }
         });
     }
+    
     //更新
     function updateuser(name,pass,email){
         
         var s="#a"+name+" ";
-        console.info(s);
+        
         $(s+"#uauitem").css("display","none");
         $(s+"#uauitem2").css("display","table");
     }
@@ -168,7 +163,6 @@
         var name2=$("#a"+name+" input[id=name22]").val();
         var pass2=$("#a"+name+" input[id=pass22]").val();
         var email2=$("#a"+name+" input[id=email22]").val();
-        //console.info("确认2222222更新:"+name2+","+pass2+","+email2);
         $.ajax({
             url:"/user/updateuser",
             type:"POST",

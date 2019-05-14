@@ -26,6 +26,8 @@ public class GetInfo {
     变成控制器的同时已经将本身加入了ioc中
     所以再在applicationcontex配会运行出错*/
     private IUserService userService;
+    
+    //聊天界面获取用户名，用modelandview跳转
     @RequestMapping("context/{username}")
     public ModelAndView getcontext(@PathVariable("username")String name){
 
@@ -44,11 +46,8 @@ public class GetInfo {
     public JsonMsg myMessage(HttpServletRequest request){
         String username=request.getParameter("username");
         
-        
         //查找被@的数据
         List<Uau> uaulist=userService.queryUauByTouser(username);
-        
-
         return JsonMsg.setuaulist(uaulist);
         
     }

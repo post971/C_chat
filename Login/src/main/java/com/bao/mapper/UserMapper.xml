@@ -14,6 +14,7 @@
 	<select id="queryPassByUsername" resultType="String" parameterType="String">
  		select password from users where username = #{username}
  	</select>
+	
 	<insert id="addUser" parameterType="com.bao.entity.User">
 		insert into users(id,username,password,email,context) values(null,#{username},#{password},#{email},#{context})
 	</insert>

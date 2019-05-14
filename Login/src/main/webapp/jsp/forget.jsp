@@ -94,58 +94,7 @@
     </div>
 
 </div>
-<%--&lt;%&ndash;用户名&ndash;%&gt;
-<table id="usernameTable" class="login-top" border="1" cellpadding="10" cellspacing="0">
-    <tr>
-        <td colspan="2" class="login-td">找回密码</td>
-    </tr>
-    <tr>
-        <td align="right">用户名:</td>
-        <td><input type="text" name="username" id="username"/></td>
-    </tr>
-    <tr>
-        <td colspan="2" align="center">
-            <input type="button" value="找回密码" id="refind"/>
-            <input type="button" value="返回" onclick="javascript :history.go(-1);"/>
-        </td>
-    </tr>
-</table>
 
-
-&lt;%&ndash;验证码&ndash;%&gt;
-<table id="yanTable" class="login-top" border="1" cellpadding="10" cellspacing="0">
-    <tr>
-        <td colspan="2" class="login-td">找回密码</td>
-    </tr>
-    <tr>
-        <td align="right">验证码:</td>
-        <td><input type="text" name="yan" id="yan"/></td>
-    </tr>
-    <tr>
-        <td colspan="2" align="center">
-            <input type="button" value="提交" id="sub1"/>
-            <input type="button" value="返回" id="sub1back"/>
-        </td>
-    </tr>
-</table>
-
-
-&lt;%&ndash;新密码&ndash;%&gt;
-<table id="newpassTable" class="login-top" border="1" cellpadding="10" cellspacing="0">
-    <tr>
-        <td colspan="2" class="login-td">找回密码</td>
-    </tr>
-    <tr>
-        <td align="right">新密码:</td>
-        <td><input type="text" name="newpass" id="newpass"/></td>
-    </tr>
-    <tr>
-        <td colspan="2" align="center">
-            <input type="button" value="确认" id="sub2" />
-            <input type="button" value="返回" id="sub2back"/>
-        </td>
-    </tr>
-</table>--%>
 <script type="text/javascript">
     $(document).ready(function() {
         /*我管这个叫三级跳转*/
@@ -215,8 +164,6 @@
                 }});
 
         });
-
-
 
 
         $("#sub1back").click(function () {

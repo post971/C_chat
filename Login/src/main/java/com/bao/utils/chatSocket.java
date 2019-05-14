@@ -75,7 +75,7 @@ public class chatSocket {
         
         
         //把前4个字拿出来看看有没有[私聊]或者[插话]
-        //System.out.println("aa-"+msg);
+        
         String s="";
         if(msg.length()>=4){
             s=msg.substring(0,4);
@@ -168,8 +168,6 @@ public class chatSocket {
                     context+=msg.charAt(i);
                 }
                 
-                
-
                 
                 //把list的内容遍历
                 int j=0;

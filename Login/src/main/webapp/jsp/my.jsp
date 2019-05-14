@@ -39,7 +39,7 @@
                         </div>
                         <!--好友面板-->
                         <div style="width:100%; height:445px; background:#e2e2e2;">
-                            <div style="width:95%; height:98%; background:#f2f2f2; margin:auto;">
+                            <div class="my-div2">
                                 <!--一条-->
                                 <div id="userlist1" class="my-f-body">
                                     <p ff="name" class="my-f-name">名字</p>
@@ -56,7 +56,7 @@
                 </td>
 
                 <td><div style="margin:auto; width:670px; height:480px">
-                    <div style="width:100%; height:35px; background:#2F4056;text-align: center">
+                    <div class="my-div3">
                         <span class="my-divleft-top-span">消息</span>
                     </div>
                     <!--消息面板-->
@@ -99,7 +99,7 @@
                         <hr class="layui-bg-black" style="margin:8px 10px 0px 10px">
                     </div>
                     <!--编辑框与按钮-->
-                    <div style="width:100%;height:120px;; background:#e2e2e2">
+                    <div style="width:100%;height:120px; background:#e2e2e2">
                         <div style="width:650px;  margin-left:auto; margin-right:auto;">
                             <textarea id="text" required lay-verify="required" placeholder="请输入"  style="width:100%; height:70px"></textarea>
                             <div align="right"><input id="send" type="button" class="layui-btn layui-btn-primary"  value="发送"/></div>
@@ -114,17 +114,16 @@
     </div>
 
 
-    <div id="uaulist" style="width:1000px; height:500px;margin:0px auto 0px auto;display: none;" align="center">
+    <div id="uaulist" class="my-uaulist" align="center">
         <div style="margin:auto; width:670px; height:480px">
             <div style="width:100%; height:35px; background:#2F4056;" align="center">
-                <button onclick="showmymessage2()" class="layui-btn" style="width:70px;height:100%;float: left;background-color:#191970;">
+                <button onclick="showmymessage2()" class="layui-btn my-back" >
                     <i class="layui-icon layui-icon-left" style="color: #fff"></i>
                 </button>
                 <span style="color:#fff;font-size: 23px">我的消息</span></div>
             <!--消息面板-->
             <div style="width:100%; height:445px; background:#e2e2e2;">
-                <div style="width:650px; height:435px; background:#f2f2f2; margin:auto auto auto auto;overflow:auto;">
-
+                <div class="my-div4">
 
                     <table width="650px" cellpadding="0" cellspacing="0" border="1px">
 
@@ -160,20 +159,7 @@
     </div>
 </div>
 
-<%--<div id="userlist"></div>
 
-
-<div class="my-div1">
- <div class="my-div2">
-     <div>
-        <p href="#" class="my-div3">欢迎你，${requestScope.user.username}&nbsp;&nbsp;|&nbsp;&nbsp;我的消息&nbsp;&nbsp;|&nbsp;&nbsp;退出</p>
-     </div>
- </div>
- <div class="my-div4">
-     <input id="updata" type="button" value="修改">
-     ${requestScope.user.context}
- </div>
-</div>--%>
 <script type="text/javascript">
     var username="${requestScope.users.username }";
     var ws;
@@ -192,17 +178,13 @@
             alert("WebSocket is not supported by this browser");
             return;
         }
-        var i=0;
-        var flag=0;
-
-
+        
 
 
         ws.onmessage=function (ev) {
 
             eval("var msg="+ev.data+";");
 
-            //alert("数组"+msg.usernames);
             //接收用户列表
             if(undefined!=msg.usernames){
                 $("#listbody").html("");
@@ -224,7 +206,6 @@
                     var name1=this.split("&")[0];
                     /*发送内容*/
                     var context1=this.split("&")[1];
-                    //console.info(name1+"<____>"+context1);
 
                     if(context1.split("]")[0]=="[私信")
                     {
@@ -246,16 +227,14 @@
                         }
                     }
                 });
-                //alert(s);
             }
             //接收对话消息
             if(undefined!=msg.context){
 
-                //alert(msg.context);
+                
                 var s=msg.context;
                 var name=s.split("%")[0];
                 var message=s.split("%")[1];
-                //alert(s+"-"+name+"-"+message);
                 if(name=="${requestScope.users.username }"){
                     addMessage(name,message,1);
                 }
@@ -272,7 +251,6 @@
 
     //用户列表添加用户
     function addUser(aname){
-        //alert("页面ui修改")
         var box = $("#userlist1").clone(); 	//复制一份模板，取名为box
         box.css("display","block") //显示
         box.find('[ff="name"]').css("display","block");	//设置box状态为显示
@@ -294,7 +272,7 @@
             var box = $("#hems").clone();
             var s='<img src="/img/icon.jpg" onclick="aite('+name+')" style="width:75px;"/>';
             box.find('[ff="oclick"]').html(s);
-            //console.info("777");
+            
 
             var s="'"+message+"'";
             var ss="cha("+s+")"
@@ -330,14 +308,12 @@
             data:"username="+${requestScope.users.username },
             dataType:"json",
             success:function (result){
-                //alert("666");
                 $("#uautable").html("");
                 var list=result.list;
                 for(var i=0;i<list.length;i++){
                     var username = list[i].username;
                     var tousername =list[i].tousername;
                     var context=list[i].context;
-                    //alert(username+"--"+tousername+"--"+context);
 
                     var item=$("#k").clone();//复制一个作为模板
                     item.css("display","block");//显示
@@ -371,7 +347,6 @@
 
         if(window.confirm('你确定要删除这条私信吗？')){
             //删除操作
-            //alert(username+"--"+tousername+"--"+context);
             $.ajax({
                 url:"/user/deletesm",
                 type:"POST",
@@ -386,14 +361,12 @@
                 }});
             return true;
         }else{
-            //alert("取消");
             return false;
         }
 
     }
 
     function cha(context){
-        //alert("cha-"+context);
         $("#text").val("[插话]"+context+" ");
         $("#text").focus();
     }
