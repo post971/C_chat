@@ -85,6 +85,11 @@
                             //进入admin
                             window.location.href = 'admin.jsp';
                         }
+                        else if(result.code==0){
+                            $("#uaperror").css("display","block");
+                            $("#uaperror").html("用户不存在")
+                            $("#username").focus();
+                        }
                         else {
                             $("#uaperror").css("display","block");
                             $("#username").focus();

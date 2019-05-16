@@ -54,11 +54,13 @@ public class UserController {
 
             ModelAndView mv = new ModelAndView();
             mv.addObject("users", user);
-            System.out.println(user);
-            if (pass.equals(user.getPassword())) {
+            if(user==null){
+                return JsonMsg.nullJson();
+            }else if (pass.equals(user.getPassword())) {
                 return JsonMsg.success();
+            }else {
+                return JsonMsg.fail();
             }
-            return JsonMsg.fail();
         }
     }
 

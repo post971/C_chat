@@ -11,6 +11,7 @@ import org.springframework.web.context.ContextLoader;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.*;
 
 
@@ -36,7 +37,9 @@ public class chatSocket {
         String queryString=session.getQueryString();
         username=queryString.split("=")[1];
         
-
+        //百分号乱码转化
+        username=URLDecoder.decode(username);
+        
         //把上线名字广播给所有用户
         this.names.add(username);
         this.sessions.add(session);
@@ -65,7 +68,6 @@ public class chatSocket {
         //
         nameandcontext.add(msg);
         Iterator it1 = nameandcontext.iterator();
-        
         
         //bcname：插话的人
         String bcname=msg.split("&")[0];
@@ -192,9 +194,7 @@ public class chatSocket {
                 String ch=bcname+"&[插话]"+context;
                 nameandcontext.add(j+1,ch);
                 nameandcontext.remove( nameandcontext.get(nameandcontext.size()-1));
-                
                 Message message = new Message();
-                
                 message.setContextlist(nameandcontext);
                 broadcast(this.sessions, message.toJson());
 

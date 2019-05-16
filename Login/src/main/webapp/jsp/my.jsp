@@ -179,8 +179,8 @@
             return;
         }
         
-
-
+        
+        //接收后端的消息并处理
         ws.onmessage=function (ev) {
 
             eval("var msg="+ev.data+";");
@@ -189,7 +189,6 @@
             if(undefined!=msg.usernames){
                 $("#listbody").html("");
                 $(msg.usernames).each(function(){
-                    console.info(decodeURI(this));
                     addUser(decodeURI(this));
                 });
             }
@@ -228,6 +227,8 @@
                     }
                 });
             }
+            
+            
             //接收对话消息
             if(undefined!=msg.context){
 
@@ -262,15 +263,14 @@
 
     //消息面板添加消息
     function addMessage(name,message,my){
-        console.info(name+"-"+message+"-"+my);
         if(my==1){
             var box = $("#myms").clone();
-            console.info("666");
             box.find('[ff="ms"]').html(message);
         }
         else{
             var box = $("#hems").clone();
-            var s='<img src="/img/icon.jpg" onclick="aite('+name+')" style="width:75px;"/>';
+            var name1="'"+name+"'";
+            var s='<img src="/img/icon.jpg" onclick="aite('+name1+')" style="width:75px;"/>';
             box.find('[ff="oclick"]').html(s);
             
 
