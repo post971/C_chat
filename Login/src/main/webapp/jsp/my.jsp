@@ -291,9 +291,15 @@
     }
 
     $("#send").click(function () {
+        if($.trim($("#text").val())!=""){
+        
         var val="${requestScope.users.username }"+"&"+$("#text").val();
         ws.send(val);
         $("#text").val("");
+        }
+        else{
+            alert('不能为空!');
+        }
     });
 
 
